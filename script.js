@@ -15,93 +15,116 @@ $(document).ready(function(){
         }
     });
 
-    // Form Validation
 
-    const form = document.querySelector('#create-account-form');
-const usernameInput = document.querySelector('#username');
-const emailInput = document.querySelector('#email');
-const SubjectInput = document.querySelector('#subject');
-const messageInput = document.querySelector('#confirm-MEssage');
-
-form.addEventListener('submit', (event)=>{
+    // Form 
     
-    validateForm();
-    console.log(isFormValid());
-    if(isFormValid()==true){
-        form.submit();
-     }else {
-         event.preventDefault();
-     }
+    const form = document.getElementById("contactForm");
+const username = document.getElementById("username");
+const email = document.getElementById("email");
+const subject = document.getElementById("subject");
+const message = document.getElementById("message");
 
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    checkInputs();
 });
 
-function isFormValid(){
-    const inputContainers = form.querySelectorAll('.input-group');
-    let result = true;
-    inputContainers.forEach((container)=>{
-        if(container.classList.contains('error')){
-            result = false;
-        }
-    });
-    return result;
-}
+function checkInputs(){
+    //get the values from the user
+    const namevalue = username.value.trim();
+    const emailvalue = email.value.trim();
+    const subjectvalue = subject.value.trim();
+    const messagevalue = message.value.trim();
+var a=b=c=d=0;
+    if(namevalue === ''){
+        //show error 
+        // add error class
+        setErrorFor(username, 'Username cannot be null');
 
-function validateForm() {
-    //USERNAME
-    if(usernameInput.value.trim()==''){
-        setError(usernameInput, 'Name can not be empty');
-    }else if(usernameInput.value.trim().length <5 || usernameInput.value.trim().length > 15){
-        setError(usernameInput, 'Name must be min 5 and max 15 charecters');
-    }else {
-        setSuccess(usernameInput);
-    }
-    //EMAIL
-    if(emailInput.value.trim()==''){
-        setError(emailInput, 'Provide email address');
-    }else if(isEmailValid(emailInput.value)){
-        setSuccess(emailInput);
     }else{
-        setError(emailInput, 'Provide valid email address');
+        //add success class
+        setSuccessFor(username);
+        a=1;
+
     }
 
-    //Subject
-    if(SubjectInput.value.trim()==''){
-        setError(SubjectInput, 'Subject can not be empty');
-    }else if(SubjectInput.value.trim().length <10){
-        setError(SubjectInput, 'Subject min 10 charecters');
-    }else {
-        setSuccess(SubjectInput);
+    if(emailvalue === ''){
+        setErrorFor(email,'Email cannot be blank');
     }
-    //CONFIRM Subject
-    if(messageInput.value.trim()==''){
-        setError(messageInput, 'Subject can not be empty');
-    }else {
-        setSuccess(messageInput);
+    else if(!isEmail(emailvalue)){
+        setErrorFor(email,'Email is not valid')
+    }else{
+        setSuccessFor(email);
+        b=1;
+    }
+
+    if(subjectvalue === ''){
+        //show error 
+        // add error class
+        setErrorFor(subject, 'Subject cannot be null');
+
+    }else{
+        //add success class
+        setSuccessFor(subject);
+        c=1;
+
+    }
+    if(messagevalue === ''){
+        //show error 
+        // add error class
+        setErrorFor(message, 'message cannot be null');
+
+    }
+    else if(messagevalue.length <= 30){
+        //show error 
+        // add error class
+        setErrorFor(message, 'atleast 30 Letters');
+    }else if(messagevalue.length >= 150){
+        //show error 
+        // add error class
+        setErrorFor(message, 'atmost 150 Letters');
+    }
+    else{
+        //add success class
+        setSuccessFor(message);
+        d=1;
+        if(a==b==c==d==1){
+                var form = document.getElementById('contactForm');
+                var xhr = new XMLHttpRequest();
+                var data = new FormData(form);
+                console.log(data);
+                xhr.open('POST','https://script.google.com/macros/s/AKfycbyrblOTDToEPjYI6Pdk9gyyrYeEiTYuAikbeaCdeyS6IYGBPUFO8qf7jTo4xsipCVUH/exec')
+          
+                xhr.send(data);
+                xhr.onreadystatechange = function() {
+                  if (xhr.readyState == XMLHttpRequest.DONE) {
+              alert("Submit successful");
+                    form.reset();
+                  }
+                }
+                //Dont submit the form.
+                return false; 
+              
+            };
     }
 }
 
-function setError(element, errorMessage) {
-    const parent = element.parentElement;
-    if(parent.classList.contains('success')){
-        parent.classList.remove('success');
-    }
-    parent.classList.add('error');
-    const paragraph = parent.querySelector('p');
-    paragraph.textContent = errorMessage;
+function setErrorFor(input, message) {
+    const formControl = input.parentElement;
+    const small = formControl.querySelector('small');
+
+    //add error message
+    small.innerText = message;
+
+    //add error class
+    formControl.className = 'x err';
 }
-
-function setSuccess(element){
-    const parent = element.parentElement;
-    if(parent.classList.contains('error')){
-        parent.classList.remove('error');
-    }
-    parent.classList.add('success');
+function setSuccessFor(input) {
+    const formControl = input.parentElement;
+    formControl.className = 'x success';
 }
-
-function isEmailValid(email){
-    const reg =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-    return reg.test(email);
+function isEmail(email) {
+    return /^[a-zA-Z0-9.!#$%&'+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(email)
 }
 
 

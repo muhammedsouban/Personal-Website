@@ -11,6 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
@@ -207,7 +209,8 @@
             <div class="contact-content">
                 <div class="column left">
                     <div class="text">Get in Touch</div>
-                    <p>If you have any questions or needs, I am available for further information, so please feel free to contact me at any time.</p>
+                    <p>If you have any questions or needs, I am available for further information, so please feel free
+                        to contact me at any time.</p>
                     <div class="icons">
                         <div class="row">
                             <i class="fas fa-user"></i>
@@ -233,42 +236,39 @@
                     </div>
                 </div>
                 <div class="column right">
-                    <div class="text">Message me</div>
+                    
                     <div class="container-fluid">
 
 
-                        <form id="create-account-form" action="https://script.google.com/macros/s/AKfycbyrblOTDToEPjYI6Pdk9gyyrYeEiTYuAikbeaCdeyS6IYGBPUFO8qf7jTo4xsipCVUH/exec" method="post">
-                            <!-- USERNAME -->
-                            <div class="input-group">
-                                <input type="text" id="username" placeholder="Name" name="username">
-                                <i class="fas fa-check-circle"></i>
-                                <i class="fas fa-exclamation-circle"></i>
-                                <p>Error Message</p>
-                            </div>
-                            <!-- EMAIL -->
-                            <div class="input-group">
-                                <input type="email" id="email" placeholder="Email" name="email">
-                                <i class="fas fa-check-circle"></i>
-                                <i class="fas fa-exclamation-circle"></i>
-                                <p>Error Message</p>
-                            </div>
-                            <!-- Subject -->
-                            <div class="input-group">
-                                <input type="Subject" id="subject" placeholder="Subject" name="Subject">
-                                <i class="fas fa-check-circle"></i>
-                                <i class="fas fa-exclamation-circle"></i>
-                                <p>Error Message</p>
-                            </div>
-                            <!-- CONFIRM Subject -->
-                            <div class="input-group">
-                                <input type="text" id="confirm-MEssage" placeholder="Message..." name="message">
-                                <i class="fas fa-check-circle"></i>
-                                <i class="fas fa-exclamation-circle"></i>
-                                <p>Error Message</p>
-                            </div>
+                        <form
+						
+						method="post" id="contactForm" class="form1">
+						<h2 style="font-weight: bold;">Connect with me</h2>
+						<div class="x ">
+							<label for="username">Username</label>
+							<input class="form-control" type="text" name="name"  id="username" placeholder="Enter Username">
+							<small >Error Message</small>
+						</div>
+						<div class="x">
+							<label for="email">Email</label>
+							<input class="form-control" type="email" name="email" id="email" placeholder="Enter email">
+							<small >Error Message</small>
+						</div>
 
-                            <button type="submit" class="btn">Send message</button>
-                        </form>
+						<div class="x">
+							<label for="username">Subject</label>
+							<input class="form-control" type="text" name="subject" id="subject" placeholder="Enter Subject">
+							<small>Error Message</small>
+						</div>
+
+						<div class="x">
+							<label for="username">Message</label>
+							<input class="form-control" type="text" name="message" id="message" placeholder="Enter message">
+							<small>Error Message</small>
+						</div>
+
+						<button value="submit" type="submit">Submit</button>
+					</form>
                     </div>
                 </div>
             </div>
@@ -281,25 +281,6 @@
                 class="far fa-copyright"></span> 2022 All rights reserved.</span>
     </footer>
     <script src="script.js"></script>
-    <script>
-        $("#create-account-form").submit((e)=>{
-            e.preventDefault()
-            $.ajax({
-                url:"",
-                data:$("#create-account-form").serialize(),
-                method:"post",
-                success:function (response){
-                    alert("Form submitted successfully")
-                    window.location.reload()
-                    //window.location.href="https://google.com"
-                },
-                error:function (err){
-                    alert("Please check again")
-    
-                }
-            })
-        })
-    </script>
 </body>
 
 </html>
